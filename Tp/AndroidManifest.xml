@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dhia.tp"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="14" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".Tabac"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity" >
+        </activity>
+        <activity android:name=".Album" >
+        </activity>
+        <activity android:name=".All" >
+        </activity>
+        <activity android:name=".Play" >
+        </activity>
+
+        <service android:name=".Service1" >
+        </service>
+
+        <activity
+            android:name=".Ph"
+            android:label="@string/title_activity_ph" >
+        </activity>
+        <activity
+            android:name=".Param"
+            android:label="@string/title_activity_param" >
+        </activity>
+    </application>
+
+</manifest>
