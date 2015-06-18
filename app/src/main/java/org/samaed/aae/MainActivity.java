@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.os.Parcelable;
 import android.os.RemoteException;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -15,6 +16,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -48,12 +52,43 @@ public class MainActivity extends ActionBarActivity {
 
     public void onButtonClick(View view) {
         Log.d("MainActivity", "onButtonClick()");
+
         Message m = Message.obtain();
-        m.what = DiagnosticService.MSG_ADD_SYMPTOM;
+        m.what = DiagnosticService.MSG_ADD_SYMPTOMS;
+
+        Message m2 = Message.obtain();
+        m2.what = DiagnosticService.MSG_REMOVE_SYMPTOMS;
+
+        Message m3 = Message.obtain();
+        m3.what = DiagnosticService.MSG_CLEAR_SYMPTOMS;
+
+        Message m4 = Message.obtain();
+        m4.what = DiagnosticService.MSG_COMPUTE;
+
+        Bundle b = new Bundle();
+        ArrayList<Symptom> list = new ArrayList<>();
+        list.add(new Symptom("tension haute", 12f));
+        list.add(new Symptom("tension basse", 7f));
+        b.putParcelableArrayList(DiagnosticService.MSG_ADD_SYMPTOMS_KEY, list);
+        m.setData(b);
+
+        Bundle b2 = new Bundle();
+        ArrayList<String> list2 = new ArrayList<>();
+        list2.add("tension basse");
+        b2.putStringArrayList(DiagnosticService.MSG_REMOVE_SYMPTOMS_KEY, list2);
+        m2.setData(b2);
 
         try {
             mMessenger.send(m);
-            Log.i("MainActivity", "MSG_ADD_SYMPTOM sent");
+            Log.i("MainActivity", "MSG_ADD_SYMPTOMS sent");
+            Log.i("MainActivity", String.format("Symptoms sent : %s", list.toString()));
+            mMessenger.send(m2);
+            Log.i("MainActivity", "MSG_REMOVE_SYMPTOMS sent");
+            Log.i("MainActivity", String.format("Symptoms sent : %s", list2.toString()));
+            mMessenger.send(m4);
+            Log.i("MainActivity", "MSG_COMPUTE sent");
+            mMessenger.send(m3);
+            Log.i("MainActivity", "MSG_CLEAR_SYMPTOMS sent");
         } catch (RemoteException ex) {
             Log.e("MainActivity",ex.getLocalizedMessage());
         }
