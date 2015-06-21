@@ -8,17 +8,12 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
-import android.os.Parcelable;
 import android.os.RemoteException;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -66,9 +61,9 @@ public class MainActivity extends ActionBarActivity {
         m4.what = DiagnosticService.MSG_COMPUTE;
 
         Bundle b = new Bundle();
-        ArrayList<Symptom> list = new ArrayList<>();
-        list.add(new Symptom("tension haute", 12f));
-        list.add(new Symptom("tension basse", 7f));
+        ArrayList<SymptomParcelable> list = new ArrayList<>();
+        list.add(new SymptomParcelable("tension haute", 12f));
+        list.add(new SymptomParcelable("tension basse", 7f));
         b.putParcelableArrayList(DiagnosticService.MSG_ADD_SYMPTOMS_KEY, list);
         m.setData(b);
 

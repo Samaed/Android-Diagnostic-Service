@@ -1,11 +1,8 @@
 package com.dhia.tp;
 
 import java.util.ArrayList;
-
 import java.util.HashMap;
-
 import java.util.List;
-
 import java.util.Map;
 
 public class Table {
@@ -93,16 +90,16 @@ public static void createm(){
 	List<String> lisinfix = new ArrayList<String>();
 	lisinfix.add("body temperature ");
 	
-	List<String> lisiHyperthyroïdie = new ArrayList<String>();
-	lisiHyperthyroïdie.add("body temperature ");
-	lisiHyperthyroïdie.add("oxygenation of blood");
-	lisiHyperthyroïdie.add("pulse rate");
+	List<String> lisiHyperthyroï¿½die = new ArrayList<String>();
+	lisiHyperthyroï¿½die.add("body temperature ");
+	lisiHyperthyroï¿½die.add("oxygenation of blood");
+	lisiHyperthyroï¿½die.add("pulse rate");
 	
 	
 	 mapm.put("Diabete",lisdia );
 	 mapm.put("inflammation",lisfla );
 	 mapm.put("infection",lisinfix );
-	 mapm.put("Hyperthyroïdie",lisiHyperthyroïdie);
+	 mapm.put("Hyperthyroï¿½die",lisiHyperthyroï¿½die);
 	 
 	
 

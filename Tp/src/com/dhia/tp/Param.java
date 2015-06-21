@@ -1,9 +1,5 @@
 package com.dhia.tp;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Param extends Activity {
 	public static String a="blood glucose";
