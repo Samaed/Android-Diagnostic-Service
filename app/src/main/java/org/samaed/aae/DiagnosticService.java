@@ -131,10 +131,10 @@ public class DiagnosticService extends Service {
         }
     }
 
-    private class ComputeTask extends AsyncTask<Symptom, Void, List<Symptom>> {
+    private class ComputeTask extends AsyncTask<Symptom, Void, List<Disease>> {
 
         @Override
-        protected List<Symptom> doInBackground(Symptom... params) {
+        protected List<Disease> doInBackground(Symptom... params) {
             RestTemplate restTemplate = new RestTemplate();
             Log.d("DiagnosticParam",String.valueOf(params[0]));
 
@@ -144,12 +144,12 @@ public class DiagnosticService extends Service {
             // Add the String message converter
             restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
             // Make the HTTP GET request, marshaling the response to a String
-            Symptom[] results = restTemplate.getForObject(REST_FULL_URL, Symptom[].class, symptomsJSON);
+            Disease[] results = restTemplate.getForObject(REST_FULL_URL, Disease[].class, symptomsJSON);
             return Arrays.asList(results);
         }
 
         @Override
-        protected void onPostExecute(List<Symptom> result) {
+        protected void onPostExecute(List<Disease> result) {
             // TODO send the data to the UI
             Log.d("DiagnosticService",result.toString());
         }
