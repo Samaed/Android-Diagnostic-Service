@@ -1,7 +1,9 @@
 package org.samaed.aae;
 
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -10,21 +12,32 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.support.v7.app.ActionBarActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
 
     private ServiceConnection mServiceConnection;
     private Messenger mMessenger;
+    private List<Symptom> symptoms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TextView textViewEmptyList = (TextView) findViewById(R.id.empty_list);
+        textViewEmptyList.setVisibility(View.INVISIBLE);
+        this.symptoms = new ArrayList<>();
+        testSymptoms();
 
         mServiceConnection = new ServiceConnection() {
             @Override
@@ -43,6 +56,58 @@ public class MainActivity extends ActionBarActivity {
         Intent intent = new Intent(this, DiagnosticService.class);
         bindService(intent, mServiceConnection, Context.BIND_ADJUST_WITH_ACTIVITY);
         startService(intent);
+
+
+        final GridView gridview = (GridView) findViewById(R.id.list_symptoms_grid_id);
+        gridview.setAdapter(new SymptomsAdapter(this, this.symptoms));
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                alertDialog(((SymptomsAdapter) gridview.getAdapter()).getCurrentSymptom(position), gridview);
+            }
+        });
+
+    }
+
+    private void testSymptoms(){
+        this.symptoms.add(new Symptom("Waist to hip ratio", 1.5f, 0xfff79646, "measuring_tape"));
+        this.symptoms.add(new Symptom("Blood pressure", 70, 0xff4f81bd, "pressure_reading"));
+        this.symptoms.add(new Symptom("Body temperature", 96, 0xffc0504d, "thermometer"));
+        this.symptoms.add(new Symptom("Oxygenation of blood", 95, 0xff4bacc6, "oxygen"));
+        this.symptoms.add(new Symptom("Pulse rate", 75, 0xffc00000, "heart"));
+        this.symptoms.add(new Symptom("Blood glucose", 6.3f, 0xff8064a2, "laboratory"));
+    }
+
+    public void alertDialog(final Symptom symptom, GridView gridView){
+        final GridView gv = gridView;
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        alert.setTitle("Set value");
+        alert.setMessage(symptom.getUniqueName());
+
+        // Set an EditText view to get user input
+        final EditText input = new EditText(this);
+        input.setText(String.valueOf(symptom.getValue()));
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        alert.setView(input);
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String value = input.getText().toString();
+                symptom.setValue(Float.valueOf(value));
+                gv.invalidateViews();
+                // Do something with value!
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        });
+
+        alert.show();
     }
 
     public void onButtonClick(View view) {

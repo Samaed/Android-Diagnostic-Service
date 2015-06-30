@@ -5,6 +5,8 @@ public class Symptom  {
     protected static final float DEFAULT_VALUE = 0f;
     protected String uniqueName;
     protected float value;
+    protected int color = 0xfff79646;
+    protected String image = "measuring_tape";
 
     public Symptom() {
         this(DEFAULT_NAME, DEFAULT_VALUE);
@@ -13,6 +15,13 @@ public class Symptom  {
     public Symptom(String name, float value) {
         this.uniqueName = name;
         this.value = value;
+    }
+
+    public Symptom(String name, float value, int color, String image) {
+        this.uniqueName = name;
+        this.value = value;
+        this.image = image;
+        this.color = color;
     }
 
     public void setUniqueName(String name) {
@@ -29,6 +38,22 @@ public class Symptom  {
 
     public float getValue() {
         return this.value;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

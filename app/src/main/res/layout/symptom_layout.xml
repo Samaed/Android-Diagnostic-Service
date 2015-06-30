@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="160dp"
+    android:layout_height="160dp"
+    android:background="@drawable/border"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/symptom_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="25dp"
+        android:textColor="@android:color/black"
+        android:text="Body temperature">
+    </TextView>
+
+    <RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        <ImageView
+            android:id="@+id/symptom_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="6dp"
+            android:paddingTop="7dp"
+            android:paddingRight="0dp"
+            android:contentDescription="@string/symptom"
+            android:src="@drawable/thermometer">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/symptom_value"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:textSize="65sp"
+            android:textStyle="bold"
+            android:paddingLeft="20dp"
+            android:paddingBottom="20dp"
+            android:textColor="@android:color/black"
+            android:text="96">
+        </TextView>
+
+    </RelativeLayout>
+
+</LinearLayout>
