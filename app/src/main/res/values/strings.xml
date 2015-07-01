@@ -3,4 +3,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="symptom">Symptom</string>
+    <string name="symptoms">Actual symptoms</string>
+    <string name="list_empty">The list is empty</string>
 </resources>
