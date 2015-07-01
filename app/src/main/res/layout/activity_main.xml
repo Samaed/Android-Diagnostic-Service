@@ -8,7 +8,7 @@
     android:background="#d9d9d9">
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp">
         <TextView
@@ -18,6 +18,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
             android:textSize="20sp"
             android:text="@string/symptoms" />
         <Button
@@ -25,19 +26,23 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
-            android:text="Diagnosis"/>
+            android:text="Diagnosis"
+            android:onClick="onClickTest"/>
     </RelativeLayout>
 
 
     <GridView
         android:id="@+id/list_symptoms_grid_id"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numColumns="auto_fit"
-        android:columnWidth="160dp"
+        android:columnWidth="150dp"
         android:verticalSpacing="10dp"
         android:horizontalSpacing="10dp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"/>
 
     <TextView
         android:id="@+id/empty_list"

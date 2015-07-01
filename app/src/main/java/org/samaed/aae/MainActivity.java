@@ -28,15 +28,12 @@ public class MainActivity extends ActionBarActivity {
 
     private ServiceConnection mServiceConnection;
     private Messenger mMessenger;
-    private List<Symptom> symptoms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView textViewEmptyList = (TextView) findViewById(R.id.empty_list);
-        textViewEmptyList.setVisibility(View.INVISIBLE);
-        this.symptoms = new ArrayList<>();
+
         testSymptoms();
 
         mServiceConnection = new ServiceConnection() {
@@ -59,7 +56,7 @@ public class MainActivity extends ActionBarActivity {
 
 
         final GridView gridview = (GridView) findViewById(R.id.list_symptoms_grid_id);
-        gridview.setAdapter(new SymptomsAdapter(this, this.symptoms));
+        gridview.setAdapter(new SymptomsAdapter(this, CurrentDiagnostic.getInstance().getSymptoms(), false));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
@@ -68,19 +65,23 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+        TextView textViewEmptyList = (TextView) findViewById(R.id.empty_list);
+        textViewEmptyList.setVisibility(CurrentDiagnostic.getInstance().getSymptoms().isEmpty() ? View.VISIBLE : View.INVISIBLE);
+
     }
 
     private void testSymptoms(){
-        this.symptoms.add(new Symptom("Waist to hip ratio", 1.5f, 0xfff79646, "measuring_tape"));
-        this.symptoms.add(new Symptom("Blood pressure", 70, 0xff4f81bd, "pressure_reading"));
-        this.symptoms.add(new Symptom("Body temperature", 96, 0xffc0504d, "thermometer"));
-        this.symptoms.add(new Symptom("Oxygenation of blood", 95, 0xff4bacc6, "oxygen"));
-        this.symptoms.add(new Symptom("Pulse rate", 75, 0xffc00000, "heart"));
-        this.symptoms.add(new Symptom("Blood glucose", 6.3f, 0xff8064a2, "laboratory"));
+        List<Symptom> symptoms = new ArrayList<>();
+        symptoms.add(new Symptom("Waist to hip ratio", 1f, 2f, 1.5f, 0x9ff79646, "measuring_tape"));
+        symptoms.add(new Symptom("Blood pressure", 60, 89, 70, 0x9f4f81bd, "pressure_reading"));
+        symptoms.add(new Symptom("Body temperature", 97, 98, 96, 0xffc0504d, "thermometer"));
+        symptoms.add(new Symptom("Oxygenation of blood", 95, 100, 95, 0x7f4bacc6, "oxygen"));
+        symptoms.add(new Symptom("Pulse rate", 66, 99, 75, 0x5fc00000, "heart"));
+        symptoms.add(new Symptom("Blood glucose", 5, 8, 6.3f, 0x6f8064a2, "laboratory"));
+        CurrentDiagnostic.getInstance().setSymptoms(symptoms);
     }
 
-    public void alertDialog(final Symptom symptom, GridView gridView){
-        final GridView gv = gridView;
+    public void alertDialog(final Symptom symptom, final GridView gridView){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
         alert.setTitle("Set value");
@@ -88,7 +89,7 @@ public class MainActivity extends ActionBarActivity {
 
         // Set an EditText view to get user input
         final EditText input = new EditText(this);
-        input.setText(String.valueOf(symptom.getMin()));
+        input.setText(String.valueOf(symptom.getValue()));
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
         alert.setView(input);
 
@@ -96,8 +97,7 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(DialogInterface dialog, int whichButton) {
                 String value = input.getText().toString();
                 symptom.setValue(Float.valueOf(value));
-                gv.invalidateViews();
-                // Do something with value!
+                gridView.invalidateViews();
             }
         });
 
@@ -108,6 +108,11 @@ public class MainActivity extends ActionBarActivity {
         });
 
         alert.show();
+    }
+
+    public void onClickTest(View view){
+        Intent intent = new Intent(this, DiagnosticActivity.class);
+        startActivity(intent);
     }
 
     public void onButtonClick(View view) {

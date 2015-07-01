@@ -86,4 +86,8 @@ public class Symptom  {
     public String toString() {
         return String.format("Symptom : %s:[%f,%f]",getUniqueName(),getMin(),getMax());
     }
+
+    public boolean isValueInRange(){
+        return value >= min && value <= max;
+    }
 }
