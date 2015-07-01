@@ -88,7 +88,7 @@ public class MainActivity extends ActionBarActivity {
 
         // Set an EditText view to get user input
         final EditText input = new EditText(this);
-        input.setText(String.valueOf(symptom.getValue()));
+        input.setText(String.valueOf(symptom.getMin()));
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
         alert.setView(input);
 
