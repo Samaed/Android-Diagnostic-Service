@@ -53,7 +53,7 @@ public class MainActivity extends ActionBarActivity {
         List<SymptomParcelable> symptoms = new ArrayList<>();
         symptoms.add(new SymptomParcelable("Waist to hip ratio", 1f, 2f, 1.5f, 0x9ff79646, "measuring_tape"));
         symptoms.add(new SymptomParcelable("Blood pressure", 60, 89, 70, 0x9f4f81bd, "pressure_reading"));
-        symptoms.add(new SymptomParcelable("Body temperature", 97, 98, 96, 0xffc0504d, "thermometer"));
+        symptoms.add(new SymptomParcelable("Body temperature", 97, 98, 102, 0xffc0504d, "thermometer"));
         symptoms.add(new SymptomParcelable("Oxygenation of blood", 95, 100, 95, 0x7f4bacc6, "oxygen"));
         symptoms.add(new SymptomParcelable("Pulse rate", 66, 99, 75, 0x5fc00000, "heart"));
         symptoms.add(new SymptomParcelable("Blood glucose", 5, 8, 6.3f, 0x6f8064a2, "laboratory"));

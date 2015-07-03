@@ -88,7 +88,7 @@ public class Symptom  {
 
     @Override
     public String toString() {
-        return String.format("Symptom : %s:[%f,%f]",getUniqueName(),getMin(),getMax());
+        return String.format("Symptom : %s:[%f,%f]@%f",getUniqueName(),getMin(),getMax(),getValue());
     }
 
     public boolean isValueInRange(){

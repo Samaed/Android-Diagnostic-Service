@@ -32,6 +32,10 @@ public class SymptomParcelable extends Symptom implements Parcelable {
         Bundle b = new Bundle();
         b.putString("uniquename",getUniqueName());
         b.putFloat("value",getValue());
+        b.putFloat("min",getMin());
+        b.putFloat("max",getMax());
+        b.putInt("color",getColor());
+        b.putString("image",getImage());
         dest.writeBundle(b);
     }
 
@@ -50,6 +54,10 @@ public class SymptomParcelable extends Symptom implements Parcelable {
         Bundle b = in.readBundle();
         setUniqueName(b.getString("uniquename"));
         setValue(b.getFloat("value"));
+        setMin(b.getFloat("min"));
+        setMax(b.getFloat("max"));
+        setColor(b.getInt("color"));
+        setImage(b.getString("image"));
     }
 
 }

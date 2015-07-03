@@ -165,14 +165,26 @@ public class DiagnosticService extends Service {
                 return Arrays.asList(results);
             } catch (Exception ex) {
                 Log.d("DiagnosticService","Error in server communication, backup to test values");
-                return getTestValue();
+                return getTestValue(params[0].symptoms);
             }
         }
 
-        private List<Disease> getTestValue() {
+        private List<Disease> getTestValue(Symptom[] symptoms) {
+
+            boolean temperature = false;
+            int i = 0;
+            while (!temperature && i < symptoms.length) {
+                if (symptoms[i].getUniqueName().equals("Body temperature") && !symptoms[i].isValueInRange())
+                    temperature = true;
+                i++;
+            }
+
             List<Disease> diseases = new ArrayList<>(2);
-            diseases.add(new DiseaseParcelable("Inflammation"));
-            diseases.add(new DiseaseParcelable("Infection"));
+
+            if (temperature) {
+                diseases.add(new DiseaseParcelable("Inflammation"));
+                diseases.add(new DiseaseParcelable("Infection"));
+            }
             return diseases;
         }
 
