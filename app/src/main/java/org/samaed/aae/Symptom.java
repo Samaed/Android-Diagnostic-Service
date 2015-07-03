@@ -13,6 +13,10 @@ public class Symptom  {
         this(DEFAULT_NAME, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_COLOR, DEFAULT_IMAGE);
     }
 
+    public Symptom(Symptom s) {
+        this(s.getUniqueName(), s.getMin(), s.getMax(), s.getValue(), s.getColor(), s.getImage());
+    }
+
     public Symptom(String name, float value) { this(name, value, value, value); }
 
     public Symptom(String name, float min, float max, float value) {

@@ -8,7 +8,10 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.os.RemoteException;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -33,9 +37,10 @@ public class DiagnosticService extends Service {
     public final static int MSG_REMOVE_SYMPTOMS = 2;
     public final static int MSG_CLEAR_SYMPTOMS = 3;
     public final static int MSG_COMPUTE = 4;
-    public final static int MSG_RETRIEVE_SYMPTOMS = 5;
+    public final static int MSG_RESULT = 6;
     public final static String MSG_ADD_SYMPTOMS_KEY = "SYMPTOMS";
     public final static String MSG_REMOVE_SYMPTOMS_KEY = "SYMPTOMS";
+    public final static String MSG_RESULT_DISEASES_KEY = "DISEASES";
 
     private final static String REST_URL_ROOT = "http://10.0.2.2:8080";
     private final static String REST_URL_MODEL = "/aae?data={data}";
@@ -77,7 +82,6 @@ public class DiagnosticService extends Service {
             mCatalog = catalog;
         }
 
-        // TODO use bundle and Parcelable to pass data
         @Override
         public void handleMessage(Message msg) {
             Log.i("DiagnosticService","handleMessage()");
@@ -118,11 +122,12 @@ public class DiagnosticService extends Service {
                     // Create a new RestTemplate instance
                     Log.d("DiagnosticCatalog",mCatalog.toString());
                     Symptom[] symptomsArray = new Symptom[mCatalog.size()];
-                    new ComputeTask().execute(mCatalog.values().toArray(symptomsArray));
-                    break;
-                case MSG_RETRIEVE_SYMPTOMS:
-                    Log.i("DiagnosticService", "MSG_RETRIEVE_SYMPTOMS");
-                    // SEND TO CLIENT SYMPTOMS
+
+                    ComputeTaskModel model = new ComputeTaskModel();
+                    model.client = msg.replyTo;
+                    model.symptoms = mCatalog.values().toArray(symptomsArray);
+
+                    new ComputeTask().execute(model);
                     break;
                 default:
                     super.handleMessage(msg);
@@ -131,27 +136,67 @@ public class DiagnosticService extends Service {
         }
     }
 
-    private class ComputeTask extends AsyncTask<Symptom, Void, List<Disease>> {
+    private class ComputeTaskModel {
+        public Symptom[] symptoms;
+        public Messenger client;
+    }
+
+    private class ComputeTask extends AsyncTask<ComputeTaskModel, Void, List<Disease>> {
+
+        private Messenger client;
 
         @Override
-        protected List<Disease> doInBackground(Symptom... params) {
+        protected List<Disease> doInBackground(ComputeTaskModel... params) {
+            client = params[0].client;
+
             RestTemplate restTemplate = new RestTemplate();
-            Log.d("DiagnosticParam",String.valueOf(params[0]));
+            ((SimpleClientHttpRequestFactory)restTemplate.getRequestFactory()).setReadTimeout(1000*5);
+            ((SimpleClientHttpRequestFactory)restTemplate.getRequestFactory()).setConnectTimeout(1000*5);
 
             Gson gson = new Gson();
-            String symptomsJSON = gson.toJson(params);
-            Log.d("DiagnosticJSON",symptomsJSON);
+            String symptomsJSON = gson.toJson(params[0].symptoms);
+            Log.d("DiagnosticJSON", symptomsJSON);
             // Add the String message converter
             restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
             // Make the HTTP GET request, marshaling the response to a String
-            Disease[] results = restTemplate.getForObject(REST_FULL_URL, Disease[].class, symptomsJSON);
-            return Arrays.asList(results);
+
+            try {
+                Disease[] results = restTemplate.getForObject(REST_FULL_URL, Disease[].class, symptomsJSON);
+                return Arrays.asList(results);
+            } catch (Exception ex) {
+                Log.d("DiagnosticService","Error in server communication, backup to test values");
+                return getTestValue();
+            }
+        }
+
+        private List<Disease> getTestValue() {
+            List<Disease> diseases = new ArrayList<>(2);
+            diseases.add(new DiseaseParcelable("Inflammation"));
+            diseases.add(new DiseaseParcelable("Infection"));
+            return diseases;
         }
 
         @Override
         protected void onPostExecute(List<Disease> result) {
-            // TODO send the data to the UI
-            Log.d("DiagnosticService",result.toString());
+            Log.d("DiagnosticReceived",result.toString());
+
+            ArrayList<DiseaseParcelable> diseases = new ArrayList<>(result.size());
+            for(Disease disease : result) {
+                diseases.add(new DiseaseParcelable(disease));
+            }
+
+            Message m = Message.obtain();
+            m.what = MSG_RESULT;
+
+            Bundle b = new Bundle();
+            b.putParcelableArrayList(MSG_RESULT_DISEASES_KEY, diseases);
+            m.setData(b);
+
+            try {
+                client.send(m);
+            } catch (RemoteException ex) {
+                Log.d("DiagnosticService", "Cannot send the result to the activity");
+            }
         }
     }
 }

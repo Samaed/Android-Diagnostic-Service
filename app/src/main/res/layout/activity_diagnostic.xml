@@ -92,6 +92,16 @@
             android:textSize="20sp"
             android:textColor="#00b050"
             android:paddingBottom="10dp"/>
+        <TextView
+            android:id="@+id/loading_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/loading"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="#333333"
+            android:paddingBottom="10dp"/>
     </LinearLayout>
 
 </LinearLayout>

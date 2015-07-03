@@ -10,8 +10,16 @@ public class SymptomParcelable extends Symptom implements Parcelable {
         super();
     }
 
+    public SymptomParcelable(Symptom s) {
+        super(s);
+    }
+
     public SymptomParcelable(String name, float value) {
         super(name, value);
+    }
+
+    public SymptomParcelable(String name, float min, float max, float value, int color, String image) {
+        super(name, min, max, value, color, image);
     }
 
     @Override

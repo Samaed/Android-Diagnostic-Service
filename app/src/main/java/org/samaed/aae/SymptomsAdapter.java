@@ -13,10 +13,10 @@ import java.util.List;
 
 public class SymptomsAdapter extends BaseAdapter {
     private Activity mContext;
-    private List<Symptom> values;
+    private List<SymptomParcelable> values;
     private boolean diagnostic;
 
-    public SymptomsAdapter(Activity c, List<Symptom> values, boolean diagnostic) {
+    public SymptomsAdapter(Activity c, List<SymptomParcelable> values, boolean diagnostic) {
         this.mContext = c;
         this.values = values;
         this.diagnostic = diagnostic;

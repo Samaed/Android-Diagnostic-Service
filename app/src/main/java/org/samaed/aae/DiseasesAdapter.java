@@ -7,17 +7,21 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiseasesAdapter extends BaseAdapter {
     private Activity mContext;
-    private List<Disease> diseases;
-    private List<Symptom> symptoms;
+    private List<DiseaseParcelable> diseases;
 
-    public DiseasesAdapter(Activity c, List<Symptom> symptoms, List<Disease> diseases) {
+    public DiseasesAdapter(Activity c, List<DiseaseParcelable> diseases) {
         this.mContext = c;
         this.diseases = diseases;
-        this.symptoms = symptoms;
+    }
+
+    public void updateDiseases(List<DiseaseParcelable> diseases) {
+        this.diseases = diseases;
+        notifyDataSetChanged();
     }
 
     public int getCount() {

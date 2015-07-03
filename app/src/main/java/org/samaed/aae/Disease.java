@@ -8,6 +8,10 @@ public class Disease {
         this(DEFAULT_NAME);
     }
 
+    public Disease(Disease d) {
+        this(d.getUniqueName());
+    }
+
     public Disease(String name) {
         this.uniqueName = name;
     }

@@ -1,12 +1,16 @@
 package org.samaed.aae;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CurrentDiagnostic {
     private static CurrentDiagnostic _instance = null;
-    private List<Symptom> symptoms;
-    private List<Disease> diseases;
+    private List<SymptomParcelable> symptoms;
+    private List<DiseaseParcelable> diseases;
 
     private CurrentDiagnostic(){
         this.symptoms = new ArrayList<>();
@@ -20,19 +24,19 @@ public class CurrentDiagnostic {
         return _instance;
     }
 
-    public List<Symptom> getSymptoms() {
+    public List<SymptomParcelable> getSymptoms() {
         return symptoms;
     }
 
-    public void setSymptoms(List<Symptom> symptoms) {
+    public void setSymptoms(List<SymptomParcelable> symptoms) {
         this.symptoms = symptoms;
     }
 
-    public List<Disease> getDiseases() {
+    public List<DiseaseParcelable> getDiseases() {
         return diseases;
     }
 
-    public void setDiseases(List<Disease> diseases) {
+    public void setDiseases(List<DiseaseParcelable> diseases) {
         this.diseases = diseases;
     }
 }
