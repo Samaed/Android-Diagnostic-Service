@@ -28,21 +28,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1850b242-77e0-4b55-8bd1-6c3ee0fd8007" name="Default" comment="Affichage partiel des symptomes">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/DiseaseParcelable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/CurrentDiagnostic.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/CurrentDiagnostic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/DiagnosticActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/DiagnosticActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/DiagnosticService.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/DiagnosticService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/Disease.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/Disease.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/DiseasesAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/DiseasesAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/Symptom.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/Symptom.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/SymptomParcelable.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/SymptomParcelable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/SymptomsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/samaed/aae/SymptomsAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_diagnostic.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_diagnostic.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+    <list default="true" id="1850b242-77e0-4b55-8bd1-6c3ee0fd8007" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="AAE.iws" />
@@ -1915,7 +1901,13 @@
       <option name="project" value="LOCAL" />
       <updated>1434912721552</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Adding backup in case remote connection doesn't work&#10;Final version">
+      <created>1435956443930</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1435956443930</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1974,7 +1966,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="DiagnosticService correctly asking data to REST server.&#10;IP loopback for emulator." />
     <MESSAGE value="Affichage partiel des symptomes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Affichage partiel des symptomes" />
+    <MESSAGE value="Adding backup in case remote connection doesn't work&#10;Final version" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding backup in case remote connection doesn't work&#10;Final version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
